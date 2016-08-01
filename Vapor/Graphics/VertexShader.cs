@@ -5,13 +5,11 @@
     using SharpDX.D3DCompiler;
     using D3D11 = SharpDX.Direct3D11;
 
-    public class VertexShader : VaporObject
+    public class VertexShader : Shader
     {
         private D3D11.VertexShader vertexShader;
         public ShaderSignature InputSignature { get; private set; }
         private ShaderReflection reflection;
-
-        private Dictionary<string, ConstantBuffer> constantBuffers = new Dictionary<string, ConstantBuffer>();
 
         public VertexShader(string filename) : base("VertexShader - " + filename)
         {
@@ -40,8 +38,6 @@
 
                     // Read input signature from shader code
                     InputSignature = ShaderSignature.GetInputSignature(vertexShaderByteCode);
-
-                    
                 }
             }
         }
@@ -60,11 +56,16 @@
             //Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, constantBuffers[constantBuffer.VariableName].Buffer);
         }
 
-        public void SetConstantBuffer<T>(string name, T bufferData) where T : struct
+        public override void SetConstantBuffer<T>(string name, T bufferData)
         {
-            // TODO: Only create the buffer once and store it
-            //Application.Device.ImmediateContext.VertexShader.SetConstantBuffer(constantBuffers[name].Slot+1, constantBuffers[name].Buffer);
-            Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, constantBuffers[name].Buffer);
+            if (constantBuffers.ContainsKey(name))
+            {
+                Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, constantBuffers[name].Buffer);
+            }
+            else
+            {
+                Log.Error("No constant buffer with that name: {0}", name);
+            }
         }
 
         protected override void Dispose(bool disposing)

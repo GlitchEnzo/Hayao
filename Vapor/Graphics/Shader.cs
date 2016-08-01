@@ -1,9 +1,15 @@
 ﻿namespace Vapor
 {
-    public class Shader : VaporObject
+    using System.Collections.Generic;
+
+    public abstract class Shader : VaporObject
     {
-        public Shader() : base("Shader")
+        protected Dictionary<string, ConstantBuffer> constantBuffers = new Dictionary<string, ConstantBuffer>();
+
+        public Shader(string name) : base(name)
         {
         }
+
+        public abstract void SetConstantBuffer<T>(string name, T bufferData) where T : struct;
     }
 }

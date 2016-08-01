@@ -20,4 +20,7 @@ float4 main(float4 position : POSITION) : SV_POSITION
 	//return position;
 	//return mul(position, testMatrix1);
 	return mul(testMatrix1, position);
+ 
+    //return ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(position, 1.0);
+    //return uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition, 1.0);
 }

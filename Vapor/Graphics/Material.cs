@@ -53,10 +53,21 @@
             VertexShader.SetConstantBuffer(constantBuffer, bufferData);
         }
 
-        public void SetConstantBuffer<T>(string name, T bufferData) where T : struct
+        public void SetConstantBuffer<T>(string name, T bufferData, ShaderType shaderType = ShaderType.All) where T : struct
         {
-            // TODO: How do we determine which shader to set the buffer on?
-            VertexShader.SetConstantBuffer(name, bufferData);
+            if (shaderType == ShaderType.All)
+            {
+                VertexShader.SetConstantBuffer(name, bufferData);
+                //PixelShader.SetConstantBuffer(name, bufferData);
+            }
+            else if(shaderType == ShaderType.Vertex)
+            {
+                VertexShader.SetConstantBuffer(name, bufferData);
+            }
+            else if (shaderType == ShaderType.Pixel)
+            {
+                //PixelShader.SetConstantBuffer(name, bufferData);
+            }
         }
 
         protected override void Dispose(bool disposing)

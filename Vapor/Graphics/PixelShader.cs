@@ -3,7 +3,7 @@
     using SharpDX.D3DCompiler;
     using D3D11 = SharpDX.Direct3D11;
 
-    public class PixelShader : VaporObject
+    public class PixelShader : Shader
     {
         private D3D11.PixelShader pixelShader;
 
@@ -19,6 +19,11 @@
         public void Set()
         {
             Application.Device.ImmediateContext.PixelShader.Set(pixelShader);
+        }
+
+        public override void SetConstantBuffer<T>(string name, T bufferData)
+        {
+            Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, constantBuffers[name].Buffer);
         }
 
         protected override void Dispose(bool disposing)

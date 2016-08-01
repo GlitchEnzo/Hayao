@@ -105,6 +105,9 @@
     <Compile Include="Vapor\Graphics\Shader.cs" />
     <Compile Include="Vapor\Graphics\PixelShader.cs" />
     <Compile Include="Vapor\Graphics\ShaderIncludeHandler.cs" />
+    <Compile Include="Vapor\Graphics\ShaderType.cs" />
+    <Compile Include="Vapor\Graphics\VaporModelConstants.cs" />
+    <Compile Include="Vapor\Graphics\VaporConstants.cs" />
     <Compile Include="Vapor\Graphics\VertexShader.cs" />
     <Compile Include="Vapor\Math\Transform.cs" />
   </ItemGroup>

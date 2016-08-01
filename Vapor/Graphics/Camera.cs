@@ -16,7 +16,7 @@
         /**
          * The aspect ratio (width/height) of the Camera.  Defaults to the GL viewport dimensions.
          */
-        public float AspectRatio { get; set; }// = gl.viewportWidth / gl.viewportHeight;
+        public float AspectRatio { get; set; }
 
         /**
          * The distance to the near clipping plane of the Camera.  Defaults to 0.1.

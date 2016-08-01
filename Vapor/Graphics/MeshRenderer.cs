@@ -4,11 +4,16 @@
     {
         public Mesh Mesh { get; set; }
 
+        private VaporModelConstants constants = new VaporModelConstants();
+
         public override void Draw()
         {
             Material.Set();
-            //Material.SetMatrix("uModelViewMatrix", SceneObject.Transform.modelMatrix);
-            //Material.SetMatrix("uModelMatrix", SceneObject.Transform.ScaledModelMatrix);
+            ////Material.SetMatrix("ModelViewMatrix", SceneObject.Transform.ModelMatrix);
+            //Material.SetMatrix("ModelMatrix", SceneObject.Transform.ScaledModelMatrix);
+            constants.ModelViewMatrix = SceneObject.Transform.ModelMatrix;
+            constants.ModelMatrix = SceneObject.Transform.ScaledModelMatrix;
+            Material.SetConstantBuffer("VaporModelConstants", constants);
             Mesh.Draw(Material);
         }
     }
