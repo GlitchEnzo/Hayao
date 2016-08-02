@@ -47,10 +47,9 @@
             }
         }
 
-        public void SetConstantBuffer<T>(ConstantBuffer constantBuffer, T bufferData) where T : struct
+        public void BindConstantBuffer<T>(ConstantBuffer constantBuffer, T bufferData, ShaderType shaderType = ShaderType.All) where T : struct
         {
-            // TODO: How do we determine which shader to set the buffer on?
-            VertexShader.SetConstantBuffer(constantBuffer, bufferData);
+            VertexShader.BindConstantBuffer(constantBuffer, bufferData);
         }
 
         public void SetConstantBuffer<T>(string name, T bufferData, ShaderType shaderType = ShaderType.All) where T : struct

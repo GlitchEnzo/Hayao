@@ -14,7 +14,7 @@
             {
                 // TODO: Optimize this to only do the multiplication when needed.
                 //return this.modelMatrix * this.scaleMatrix;
-                return Matrix.Multiply(this.ModelMatrix, this.ScaleMatrix);
+                return Matrix.Multiply(ModelMatrix, ScaleMatrix);
             }
         }
 
@@ -166,11 +166,11 @@
 
         public Transform() : base("Transform")
         {
-            this.ModelMatrix = new Matrix();
-            this.Rotation = new Quaternion();
-            this.EulerAngles = new Vector3();
-            this.Scale = new Vector3(1.0f, 1.0f, 1.0f);
-            this.ScaleMatrix = new Matrix();
+            ModelMatrix = Matrix.Identity;
+            Rotation = Quaternion.Identity;
+            EulerAngles = new Vector3();
+            Scale = new Vector3(1.0f, 1.0f, 1.0f);
+            ScaleMatrix = Matrix.Identity;
         }
 
         public void LookAt(Vector3 targetPosition, Vector3 worldUp)

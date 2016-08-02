@@ -33,7 +33,7 @@
         public string VariableName { get; private set; }
         public int Size { get; private set; }
 
-        public ConstantBuffer(int slot, int size, string variableName) : base("ConstantBuffer")
+        public ConstantBuffer(string variableName, int slot, int size) : base("ConstantBuffer")
         {
             Slot = slot;
             Size = size;
@@ -41,20 +41,25 @@
             Buffer = new Buffer(Application.Device, Size, ResourceUsage.Default, BindFlags.ConstantBuffer, CpuAccessFlags.None, ResourceOptionFlags.None, 0);
         }
 
-        public ConstantBuffer(ConstantBufferDescription desc, int slot) : base("ConstantBuffer")
+        public void SetData<T>(T bufferData) where T : struct
         {
-            Slot = slot;
-            Size = desc.Size;
-            VariableName = desc.Name;
-            Buffer = new Buffer(Application.Device, Size, ResourceUsage.Default, BindFlags.ConstantBuffer, CpuAccessFlags.None, ResourceOptionFlags.None, 0);
+            Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, Buffer);
         }
 
-        public static ConstantBuffer CreateFromStruct<T>(string variableName, int slot = 0) where T : struct
+        public static ConstantBuffer CreateFromStruct<T>(string variableName, int slot) where T : struct
         {
-            // TODO: Allow default data to be set?
             int size = System.Runtime.InteropServices.Marshal.SizeOf(typeof(T));
 
-            ConstantBuffer buffer = new ConstantBuffer(slot, size, variableName);
+            ConstantBuffer buffer = new ConstantBuffer(variableName, slot, size);
+            return buffer;
+        }
+
+        public static ConstantBuffer CreateFromStruct<T>(string variableName, int slot, T bufferData) where T : struct
+        {
+            int size = System.Runtime.InteropServices.Marshal.SizeOf(typeof(T));
+
+            ConstantBuffer buffer = new ConstantBuffer(variableName, slot, size);
+            buffer.SetData(bufferData);
             return buffer;
         }
     }

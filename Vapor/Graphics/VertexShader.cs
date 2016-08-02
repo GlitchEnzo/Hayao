@@ -34,7 +34,7 @@
                     {
                         var constantBufferInfo = reflection.GetConstantBuffer(i);
                         var resourceInfo = reflection.GetResourceBindingDescription(constantBufferInfo.Description.Name);
-                        ConstantBuffer constantBuffer = new ConstantBuffer(constantBufferInfo.Description, resourceInfo.BindPoint);
+                        ConstantBuffer constantBuffer = new ConstantBuffer(constantBufferInfo.Description.Name, resourceInfo.BindPoint, constantBufferInfo.Description.Size);
                         constantBuffers.Add(constantBuffer.VariableName, constantBuffer);
                         Application.Device.ImmediateContext.VertexShader.SetConstantBuffer(constantBuffer.Slot, constantBuffer.Buffer);
                     }
@@ -50,25 +50,57 @@
             Application.Device.ImmediateContext.VertexShader.Set(vertexShader);
         }
 
-        public void SetConstantBuffer<T>(ConstantBuffer constantBuffer, T bufferData) where T : struct
+        /// <summary>
+        /// Binds a NEW constant buffer to this shader.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="constantBuffer"></param>
+        /// <param name="bufferData"></param>
+        public void BindConstantBuffer<T>(ConstantBuffer constantBuffer, T bufferData) where T : struct
         {
-            // TODO: Only create the buffer once and store it
             Application.Device.ImmediateContext.VertexShader.SetConstantBuffer(constantBuffer.Slot, constantBuffer.Buffer);
-            Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, constantBuffer.Buffer);
 
-            //Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, constantBuffers[constantBuffer.VariableName].Buffer);
+            // store the buffer
+            if (constantBuffers.ContainsKey(constantBuffer.VariableName))
+            {
+                constantBuffers[constantBuffer.VariableName].Dispose();
+                constantBuffers[constantBuffer.VariableName] = constantBuffer;
+            }
+            else
+            {
+                constantBuffers.Add(constantBuffer.VariableName, constantBuffer);
+            }            
+
+            Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, constantBuffer.Buffer);
         }
 
+        /// <summary>
+        /// Updates an EXISTING constant buffer with the given data.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="name"></param>
+        /// <param name="bufferData"></param>
         public override void SetConstantBuffer<T>(string name, T bufferData)
         {
             if (constantBuffers.ContainsKey(name))
             {
                 Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, constantBuffers[name].Buffer);
             }
-            else
+            else if (name != "VaporConstants" && name != "VaporModelConstants")
             {
                 Log.Error("VS: No constant buffer with that name: {0}", name);
             }
+        }
+
+        public override ConstantBuffer GetConstantBuffer(string name)
+        {
+            if (constantBuffers.ContainsKey(name))
+            {
+                return constantBuffers[name];
+            }
+
+            Log.Error("VS: No constant buffer with that name: {0}", name);
+            return null;
         }
 
         protected override void Dispose(bool disposing)

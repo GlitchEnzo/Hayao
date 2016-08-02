@@ -26,6 +26,17 @@
             Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, constantBuffers[name].Buffer);
         }
 
+        public override ConstantBuffer GetConstantBuffer(string name)
+        {
+            if (constantBuffers.ContainsKey(name))
+            {
+                return constantBuffers[name];
+            }
+
+            Log.Error("PS: No constant buffer with that name: {0}", name);
+            return null;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

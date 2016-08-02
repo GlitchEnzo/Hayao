@@ -54,6 +54,9 @@
 
         public static Mesh CreateTriangle()
         {
+            //  0-----1
+            //   \   /
+            //     2
             Mesh mesh = new Mesh("Triangle");
             mesh.Vertices = new Vector3[] { new Vector3(-0.5f, 0.5f, 0.0f), new Vector3(0.5f, 0.5f, 0.0f), new Vector3(0.0f, -0.5f, 0.0f) };
 

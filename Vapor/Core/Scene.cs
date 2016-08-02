@@ -85,8 +85,6 @@
                     {
                         var viewMatrix = Cameras[j].Transform.ModelMatrix;
                         viewMatrix.Invert();
-                        //SceneObjects[i].Renderer.Material.SetMatrix("uViewMatrix", viewMatrix);
-                        //SceneObjects[i].Renderer.Material.SetMatrix("uProjectionMatrix", Cameras[j].ProjectionMatrix);
                         constants.ViewMatrix = viewMatrix;
                         constants.ProjectionMatrix = Cameras[j].ProjectionMatrix;
                         SceneObjects[i].Renderer.Material.SetConstantBuffer("VaporConstants", constants);

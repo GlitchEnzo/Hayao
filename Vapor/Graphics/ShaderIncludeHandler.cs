@@ -29,13 +29,13 @@
         {
             get
             {
-                Log.Info("ShaderIncludeHandler.Shadow.getter() - Not Implemented!");
+                //Log.Info("ShaderIncludeHandler.Shadow.getter() - Not Implemented!");
                 return null;
             }
 
             set
             {
-                Log.Info("ShaderIncludeHandler.Shadow.setter() - {0}", value);
+                //Log.Info("ShaderIncludeHandler.Shadow.setter() - {0}", value);
                 shadow = value;
             }
         }
@@ -44,7 +44,7 @@
         {
             if (Shadow != null)
             {
-                Log.Info("ShaderIncludeHandler.Dispose - Disposing Shadow");
+                //Log.Info("ShaderIncludeHandler.Dispose - Disposing Shadow");
                 Shadow.Dispose();
             }
         }

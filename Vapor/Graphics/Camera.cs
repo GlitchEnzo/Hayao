@@ -36,7 +36,7 @@
             //       Must do it in AddedToSceneObject...
 
             AspectRatio = Application.Width / Application.Height;
-            ProjectionMatrix = Matrix.PerspectiveFovLH(FieldOfView, AspectRatio, NearClipPlane, FarClipPlane);
+            ProjectionMatrix = Matrix.PerspectiveFovLH(FieldOfView.ToRadians(), AspectRatio, NearClipPlane, FarClipPlane);
         }
 
         public override void AddedToSceneObject()

@@ -11,5 +11,7 @@
         }
 
         public abstract void SetConstantBuffer<T>(string name, T bufferData) where T : struct;
+
+        public abstract ConstantBuffer GetConstantBuffer(string name);
     }
 }
