@@ -18,11 +18,13 @@
             {
                 if (vertexShaderByteCode.Bytecode == null)
                 {
-                    Log.Error(vertexShaderByteCode.Message);
+                    Log.Error("Shader Compilation Error: {0}", vertexShaderByteCode.Message);
                 }
                 else
                 {
                     reflection = new ShaderReflection(vertexShaderByteCode);
+
+                    
 
                     vertexShader = new D3D11.VertexShader(Application.Device, vertexShaderByteCode);
                     //Set();
@@ -31,7 +33,8 @@
                     for (int i = 0; i < reflection.Description.ConstantBuffers; i++)
                     {
                         var constantBufferInfo = reflection.GetConstantBuffer(i);
-                        ConstantBuffer constantBuffer = new ConstantBuffer(constantBufferInfo.Description, i);
+                        var resourceInfo = reflection.GetResourceBindingDescription(constantBufferInfo.Description.Name);
+                        ConstantBuffer constantBuffer = new ConstantBuffer(constantBufferInfo.Description, resourceInfo.BindPoint);
                         constantBuffers.Add(constantBuffer.VariableName, constantBuffer);
                         Application.Device.ImmediateContext.VertexShader.SetConstantBuffer(constantBuffer.Slot, constantBuffer.Buffer);
                     }
@@ -64,7 +67,7 @@
             }
             else
             {
-                Log.Error("No constant buffer with that name: {0}", name);
+                Log.Error("VS: No constant buffer with that name: {0}", name);
             }
         }
 

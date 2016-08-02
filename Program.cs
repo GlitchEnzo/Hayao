@@ -30,9 +30,9 @@
         {
             Application.Instance.WindowTitle = "Hayao";
 
-            ConstantBuffer constantBuffer = ConstantBuffer.CreateFromStruct<TestBuffer>("TestBuffer", 1);
-            TestBuffer testBuffer = new TestBuffer();
-            testBuffer.matrix = Matrix.Identity;
+            //ConstantBuffer constantBuffer = ConstantBuffer.CreateFromStruct<TestBuffer>("TestBuffer", 1);
+            //TestBuffer testBuffer = new TestBuffer();
+            //testBuffer.matrix = Matrix.Identity;
 
             // create the scene
             Scene scene = new Scene("MyScene");
@@ -47,7 +47,7 @@
             // create a simple triangle
             Material material = new Material("Shaders//vertexShader.hlsl", "Shaders//pixelShader.hlsl");
             //material.SetConstantBuffer(constantBuffer, testBuffer);
-            material.SetConstantBuffer("TestBuffer", testBuffer);
+            //material.SetConstantBuffer("TestBuffer", testBuffer);
             SceneObject triangle = SceneObject.CreateTriangle();
             triangle.Renderer.Material = material;
             scene.AddSceneObject(triangle);

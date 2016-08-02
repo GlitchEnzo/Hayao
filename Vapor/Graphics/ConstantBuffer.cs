@@ -7,6 +7,10 @@
     /// 
     /// </summary>
     /// <remarks>
+    /// UPDATE: 
+    /// Ignore most of the comment below.  You CAN get the slot # via ShaderReflection.GetResourceBindingDescription().BindPoint 
+    /// 
+    /// ORIGINAL:
     /// Interesting note about cbuffer slots.  If a cbuffer explictly lists it's register, ie:
     /// 
     /// cbuffer ConstantBuffer :  register(b1)
