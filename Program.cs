@@ -39,9 +39,11 @@
 
             // create a simple camera
             SceneObject cameraObject = SceneObject.CreateCamera();
-            //cameraObject.Transform.Position = new Vector3(0.0f, 0.0f, -7.0f);
+            cameraObject.Transform.Position = new Vector3(0.0f, 0.0f, -5.0f);
+            cameraObject.Transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f));
             Camera camera = cameraObject.GetComponent<Camera>();
             camera.BackgroundColor = new Color(32, 103, 178);
+            cameraObject.AddComponent<CameraSlider>();
             scene.AddSceneObject(cameraObject);
 
             // create a simple triangle

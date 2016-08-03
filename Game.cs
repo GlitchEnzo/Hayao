@@ -15,13 +15,13 @@
             triangleMesh = Mesh.CreateTriangle();
         }
 
-        protected override void Draw()
+        protected override void Loop()
         {
             Clear(new SharpDX.Color(32, 103, 178));
 
             triangleMesh.Draw(material);
 
-            base.Draw();
+            base.Loop();
         }
 
         protected override void Dispose(bool disposing)

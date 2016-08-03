@@ -101,7 +101,10 @@
 
         public virtual void Update()
         {
-
+            for (int i = 0; i < Components.Count; i++)
+            {
+                Components[i].Update();
+            }
         }
 
         public virtual void Draw(Camera camera)

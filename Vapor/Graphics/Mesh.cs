@@ -65,16 +65,23 @@
 
         public static Mesh CreateCube()
         {
+            // 0------1
+            // |      |\
+            // |      | \
+            // 3------2  ?
+            //  \      \ |
+            //   \      \|
+            //    ?------?
             Mesh mesh = new Mesh("Cube");
             mesh.Vertices = new Vector3[] {
-                new Vector3(-1.0f, 1.0f, -1.0f),  // TLB 0
-                new Vector3(1.0f, 1.0f, -1.0f),   // TRB 1
-                new Vector3(1.0f, 1.0f, 1.0f),    // TRF 2
-                new Vector3(-1.0f, 1.0f, 1.0f),   // TLF 3
-                new Vector3(-1.0f, -1.0f, -1.0f), // BLB 4
-                new Vector3(1.0f, -1.0f, -1.0f),  // BRB 5
-                new Vector3(1.0f, -1.0f, 1.0f),   // BRF 6
-                new Vector3(-1.0f, -1.0f, 1.0f)   // BLF 7 
+                new Vector3(-1.0f, 1.0f, -1.0f),  // Top    Left    Back    0
+                new Vector3(1.0f, 1.0f, -1.0f),   // Top    Right   Back    1
+                new Vector3(1.0f, 1.0f, 1.0f),    // Top    Right   Front   2
+                new Vector3(-1.0f, 1.0f, 1.0f),   // Top    Left    Front   3
+                new Vector3(-1.0f, -1.0f, -1.0f), // Bottom Left    Back    4
+                new Vector3(1.0f, -1.0f, -1.0f),  // Bottom Right   Back    5
+                new Vector3(1.0f, -1.0f, 1.0f),   // Bottom Right   Front   6
+                new Vector3(-1.0f, -1.0f, 1.0f)   // Bottom Left    Front   7 
             };
 
             return mesh;

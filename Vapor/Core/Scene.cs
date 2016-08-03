@@ -61,7 +61,7 @@
             sceneObject.RemovedFromScene(this);
         }
 
-        private void Update()
+        public void Update()
         {
             if (!Paused)
             {

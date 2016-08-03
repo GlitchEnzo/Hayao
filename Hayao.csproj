@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CameraSlider.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Vapor\Core\Log.cs" />
     <Compile Include="Vapor\Core\SceneObject.cs" />
     <Compile Include="Vapor\Core\Scene.cs" />
+    <Compile Include="Vapor\Core\Time.cs" />
     <Compile Include="Vapor\Core\VaporObject.cs" />
     <Compile Include="Vapor\Graphics\Camera.cs" />
     <Compile Include="Vapor\Graphics\ConstantBuffer.cs" />
@@ -106,7 +108,6 @@
     <Compile Include="Vapor\Graphics\PixelShader.cs" />
     <Compile Include="Vapor\Graphics\ShaderIncludeHandler.cs" />
     <Compile Include="Vapor\Graphics\ShaderType.cs" />
-    <Compile Include="Vapor\Graphics\VaporModelConstants.cs" />
     <Compile Include="Vapor\Graphics\VaporConstants.cs" />
     <Compile Include="Vapor\Graphics\VertexShader.cs" />
     <Compile Include="Vapor\Math\MathUtils.cs" />

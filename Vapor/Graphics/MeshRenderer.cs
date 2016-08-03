@@ -3,8 +3,7 @@
     public class MeshRenderer : Renderer
     {
         public Mesh Mesh { get; set; }
-
-        //private VaporModelConstants constants = new VaporModelConstants();
+        
         private VaporConstants constants = new VaporConstants();
 
         public override void Draw(Camera camera)

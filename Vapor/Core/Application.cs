@@ -102,11 +102,18 @@
         public virtual void Run()
         {
             // Start the render loop
-            RenderLoop.Run(renderForm, Draw);
+            RenderLoop.Run(renderForm, Loop);
         }
 
-        protected virtual void Draw()
+        protected virtual void Loop()
         {
+            Time.Update();
+
+            if (CurrentScene != null)
+            {
+                CurrentScene.Update();
+            }
+
             if (CurrentScene != null)
             {
                 CurrentScene.Draw();
