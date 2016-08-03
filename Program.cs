@@ -48,9 +48,20 @@
             Material material = new Material("Shaders//vertexShader.hlsl", "Shaders//pixelShader.hlsl");
             //material.SetConstantBuffer(constantBuffer, testBuffer);
             //material.SetConstantBuffer("TestBuffer", testBuffer);
-            SceneObject triangle = SceneObject.CreateTriangle();
-            triangle.Renderer.Material = material;
-            scene.AddSceneObject(triangle);
+
+            if (true)
+            {
+                SceneObject triangle = SceneObject.CreateTriangle();
+                triangle.Renderer.Material = material;
+                scene.AddSceneObject(triangle);
+            }
+            else
+            {
+                SceneObject cube = SceneObject.CreateCube();
+                cube.Renderer.Material = material;
+                scene.AddSceneObject(cube);
+            }
+
 
             Application.Instance.CurrentScene = scene;
             Application.Instance.Run();

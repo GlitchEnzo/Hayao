@@ -63,6 +63,23 @@
             return mesh;
         }
 
+        public static Mesh CreateCube()
+        {
+            Mesh mesh = new Mesh("Cube");
+            mesh.Vertices = new Vector3[] {
+                new Vector3(-1.0f, 1.0f, -1.0f),  // TLB 0
+                new Vector3(1.0f, 1.0f, -1.0f),   // TRB 1
+                new Vector3(1.0f, 1.0f, 1.0f),    // TRF 2
+                new Vector3(-1.0f, 1.0f, 1.0f),   // TLF 3
+                new Vector3(-1.0f, -1.0f, -1.0f), // BLB 4
+                new Vector3(1.0f, -1.0f, -1.0f),  // BRB 5
+                new Vector3(1.0f, -1.0f, 1.0f),   // BRF 6
+                new Vector3(-1.0f, -1.0f, 1.0f)   // BLF 7 
+            };
+
+            return mesh;
+        }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

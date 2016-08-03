@@ -8,6 +8,12 @@
 
         public Color BackgroundColor { get; set; }
 
+        public Matrix ViewMatrix
+        {
+            get { return Transform.ModelMatrix; }
+            set { Transform.ModelMatrix = value; }
+        }
+
         /**
         * The angle, in degrees, of the field of view of the Camera.  Defaults to 45.
         */

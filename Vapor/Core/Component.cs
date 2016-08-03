@@ -38,7 +38,7 @@
 
         }
 
-        public virtual void Draw()
+        public virtual void Draw(Camera camera)
         {
 
         }

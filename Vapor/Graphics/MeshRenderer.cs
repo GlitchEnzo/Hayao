@@ -4,16 +4,21 @@
     {
         public Mesh Mesh { get; set; }
 
-        private VaporModelConstants constants = new VaporModelConstants();
+        //private VaporModelConstants constants = new VaporModelConstants();
+        private VaporConstants constants = new VaporConstants();
 
-        public override void Draw()
+        public override void Draw(Camera camera)
         {
             Material.Set();
-            ////Material.SetMatrix("ModelViewMatrix", SceneObject.Transform.ModelMatrix);
-            //Material.SetMatrix("ModelMatrix", SceneObject.Transform.ScaledModelMatrix);
-            constants.ModelViewMatrix = SceneObject.Transform.ModelMatrix;
-            constants.ModelMatrix = SceneObject.Transform.ScaledModelMatrix;
-            Material.SetConstantBuffer("VaporModelConstants", constants);
+
+            constants.Model = SceneObject.Transform.ScaledModelMatrix;
+            constants.View = camera.ViewMatrix;
+            constants.Projection = camera.ProjectionMatrix;
+            constants.ModelView = SceneObject.Transform.ModelMatrix * camera.ViewMatrix;
+            constants.ModelViewProjection = SceneObject.Transform.ModelMatrix * camera.ViewMatrix * camera.ProjectionMatrix;
+
+            Material.SetConstantBuffer("VaporConstants", constants);
+
             Mesh.Draw(Material);
         }
     }

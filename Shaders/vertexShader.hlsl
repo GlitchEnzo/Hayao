@@ -20,10 +20,14 @@ float4 main(float4 position : POSITION) : SV_POSITION
 	//return mul(position, testMatrix1);
 	//return mul(testMatrix1, position);
  
+	//float4 pos = float4(position.xyz, 1.0);
+	//pos = mul(pos, Model);
+	//pos = mul(pos, View);
+	//pos = mul(pos, Projection);
+	//return pos;
+
 	float4 pos = float4(position.xyz, 1.0);
-	pos = mul(pos, ModelMatrix);
-	pos = mul(pos, ViewMatrix);
-	pos = mul(pos, ProjectionMatrix);
+	pos = mul(pos, ModelViewProjection);
 	return pos;
 
     //return ProjectionMatrix * ViewMatrix * ModelMatrix * float4(position.xyz, 1.0);

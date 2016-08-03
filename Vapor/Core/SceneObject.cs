@@ -104,11 +104,11 @@
 
         }
 
-        public virtual void Draw()
+        public virtual void Draw(Camera camera)
         {
             for (int i = 0; i < Components.Count; i++)
             {
-                Components[i].Draw();
+                Components[i].Draw(camera);
             }
         }
 
@@ -125,6 +125,15 @@
             SceneObject sceneObject = new SceneObject("Triangle");
             MeshRenderer meshRenderer = sceneObject.AddComponent<MeshRenderer>();
             meshRenderer.Mesh = Mesh.CreateTriangle();
+
+            return sceneObject;
+        }
+
+        public static SceneObject CreateCube()
+        {
+            SceneObject sceneObject = new SceneObject("Cube");
+            MeshRenderer meshRenderer = sceneObject.AddComponent<MeshRenderer>();
+            meshRenderer.Mesh = Mesh.CreateCube();
 
             return sceneObject;
         }

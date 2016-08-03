@@ -11,7 +11,7 @@
 
         public bool Paused { get; set; }
 
-        private VaporConstants constants = new VaporConstants();
+        //private VaporConstants constants = new VaporConstants();
 
         public Scene() : base("Scene")
         {
@@ -81,16 +81,18 @@
                 for (int i = 0; i < SceneObjects.Count; i++)
                 {
                     // Set the view & projection matrix on each renderer
-                    if (SceneObjects[i].Renderer != null)
-                    {
-                        var viewMatrix = Cameras[j].Transform.ModelMatrix;
-                        viewMatrix.Invert();
-                        constants.ViewMatrix = viewMatrix;
-                        constants.ProjectionMatrix = Cameras[j].ProjectionMatrix;
-                        SceneObjects[i].Renderer.Material.SetConstantBuffer("VaporConstants", constants);
-                    }
+                    //if (SceneObjects[i].Renderer != null)
+                    //{
+                    //    var viewMatrix = Cameras[j].Transform.ModelMatrix;
+                    //    viewMatrix.Invert();
+                    //    //constants.ViewMatrix = viewMatrix;
+                    //    //constants.ProjectionMatrix = Cameras[j].ProjectionMatrix;
+                    //    constants.ViewMatrix = Matrix.Identity;
+                    //    constants.ProjectionMatrix = Matrix.Identity;
+                    //    SceneObjects[i].Renderer.Material.SetConstantBuffer("VaporConstants", constants);
+                    //}
 
-                    SceneObjects[i].Draw();
+                    SceneObjects[i].Draw(Cameras[j]);
                 }
             }
         }
