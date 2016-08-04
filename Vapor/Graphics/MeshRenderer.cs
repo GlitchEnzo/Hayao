@@ -16,6 +16,8 @@
             constants.ModelView = SceneObject.Transform.ModelMatrix * camera.ViewMatrix;
             constants.ModelViewProjection = SceneObject.Transform.ModelMatrix * camera.ViewMatrix * camera.ProjectionMatrix;
 
+            constants.ModelViewProjection.Transpose();
+
             Material.SetConstantBuffer("VaporConstants", constants);
 
             Mesh.Draw(Material);

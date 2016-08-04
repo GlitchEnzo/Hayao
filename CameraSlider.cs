@@ -4,8 +4,8 @@
 
     public class CameraSlider : Component
     {
-        public float Max = 10;
-        public float Min = 1.5f;
+        public float Max = 12;
+        public float Min = 4;
 
         private bool forward = true;
 

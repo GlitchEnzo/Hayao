@@ -84,6 +84,22 @@
             viewport = new Viewport(0, 0, Width, Height);
             Device.ImmediateContext.Rasterizer.SetViewport(viewport);
 
+            // this disables all culling based on winding, to debug why certain things are not drawing
+            //var rasterizerDesc = new D3D11.RasterizerStateDescription()
+            //{
+            //    FillMode = D3D11.FillMode.Solid,
+            //    CullMode = D3D11.CullMode.None,
+            //    IsFrontCounterClockwise = true,
+            //    DepthBias = 0,
+            //    DepthBiasClamp = 0,
+            //    SlopeScaledDepthBias = 0,
+            //    IsDepthClipEnabled = true,
+            //    IsScissorEnabled = false,
+            //    IsMultisampleEnabled = true,
+            //    IsAntialiasedLineEnabled = true
+            //};
+            //Device.ImmediateContext.Rasterizer.State = new D3D11.RasterizerState(Device, rasterizerDesc);
+
             // Create render target view for back buffer
             using (D3D11.Texture2D backBuffer = swapChain.GetBackBuffer<D3D11.Texture2D>(0))
             {

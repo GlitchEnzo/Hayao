@@ -51,7 +51,7 @@
             //material.SetConstantBuffer(constantBuffer, testBuffer);
             //material.SetConstantBuffer("TestBuffer", testBuffer);
 
-            if (true)
+            if (false)
             {
                 SceneObject triangle = SceneObject.CreateTriangle();
                 triangle.Renderer.Material = material;
