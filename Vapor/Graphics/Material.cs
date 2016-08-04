@@ -1,21 +1,10 @@
 ﻿namespace Vapor
 {
-    using SharpDX;
-    using SharpDX.Direct3D;
-    using SharpDX.DXGI;
-    using SharpDX.Direct3D11;
-
     public class Material : VaporObject
     {
         public VertexShader VertexShader { get; set; }
 
         public PixelShader PixelShader { get; set; }
-
-        private InputLayout inputLayout;
-        private InputElement[] inputElements = new InputElement[]
-        {
-            new InputElement("POSITION", 0, Format.R32G32B32_Float, 0)
-        };
 
         public Material(string vertexShaderFilename, string pixelShaderFilename) : 
             this(new VertexShader(vertexShaderFilename), new PixelShader(pixelShaderFilename))
@@ -26,12 +15,6 @@
         {
             VertexShader = vertexShader;
             PixelShader = pixelShader;
-
-            Application.Device.ImmediateContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
-
-            inputLayout = new InputLayout(Application.Device, VertexShader.InputSignature, inputElements);
-
-            Application.Device.ImmediateContext.InputAssembler.InputLayout = inputLayout;
         }
 
         public void Set()
@@ -77,7 +60,6 @@
             {
                 VertexShader.Dispose();
                 PixelShader.Dispose();
-                inputLayout.Dispose();
             }
         }
     }

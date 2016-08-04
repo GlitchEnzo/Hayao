@@ -1,14 +1,16 @@
 ﻿namespace Vapor
 {
     using SharpDX;
-    using D3D11 = SharpDX.Direct3D11;
+    using SharpDX.Direct3D;
+    using SharpDX.Direct3D11;
+    using SharpDX.DXGI;
 
     public class Mesh : VaporObject
     {
         private Vector3[] vertices;
         public int VertexCount { get; private set; }
-        private D3D11.Buffer vertexBuffer;
-        private D3D11.VertexBufferBinding vertexBufferBinding;
+        private Buffer vertexBuffer;
+        private VertexBufferBinding vertexBufferBinding;
 
         public Vector3[] Vertices
         {
@@ -26,13 +28,13 @@
                     vertexBuffer.Dispose();
                 }
 
-                vertexBuffer = D3D11.Buffer.Create(Application.Device, D3D11.BindFlags.VertexBuffer, vertices);
-                vertexBufferBinding = new D3D11.VertexBufferBinding(vertexBuffer, Utilities.SizeOf<Vector3>(), 0);
+                vertexBuffer = Buffer.Create(Application.Device, BindFlags.VertexBuffer, vertices);
+                vertexBufferBinding = new VertexBufferBinding(vertexBuffer, Utilities.SizeOf<Vector3>(), 0);
             }
         }
 
         private uint[] indices;
-        private D3D11.Buffer indexBuffer;
+        private Buffer indexBuffer;
 
         public uint[] Indices
         {
@@ -49,27 +51,38 @@
                     indexBuffer.Dispose();
                 }
 
-                indexBuffer = D3D11.Buffer.Create(Application.Device, D3D11.BindFlags.IndexBuffer, indices);
+                indexBuffer = Buffer.Create(Application.Device, BindFlags.IndexBuffer, indices);
             }
         }
 
-        public Mesh() : base("Mesh")
+        private InputLayout inputLayout;
+        private InputElement[] inputElements = new InputElement[]
+        {
+            new InputElement("POSITION", 0, Format.R32G32B32_Float, 0)
+        };
+
+        public Mesh() : this("Mesh")
         {
             
         }
 
         public Mesh(string name) : base("Mesh: " + name)
         {
-
+            Application.Device.ImmediateContext.InputAssembler.PrimitiveTopology = PrimitiveTopology.TriangleList;
         }
 
         public void Draw(Material material)
         {
+            // set the data input layout
+            inputLayout = new InputLayout(Application.Device, material.VertexShader.InputSignature, inputElements);
+
+            Application.Device.ImmediateContext.InputAssembler.InputLayout = inputLayout;
+
             // Set vertex buffer
             Application.Device.ImmediateContext.InputAssembler.SetVertexBuffers(0, vertexBufferBinding);
 
             // Set the index buffer
-            Application.Device.ImmediateContext.InputAssembler.SetIndexBuffer(indexBuffer, SharpDX.DXGI.Format.R32_UInt, 0);
+            Application.Device.ImmediateContext.InputAssembler.SetIndexBuffer(indexBuffer, Format.R32_UInt, 0);
 
             // Draw the mesh
             //Application.Device.ImmediateContext.Draw(vertices.Length, 0);
@@ -142,6 +155,7 @@
             if (disposing)
             {
                 vertexBuffer.Dispose();
+                inputLayout.Dispose();
             }
         }
     }
