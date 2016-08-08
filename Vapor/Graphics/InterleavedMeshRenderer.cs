@@ -1,8 +1,8 @@
 ﻿namespace Vapor
 {
-    public class MeshRenderer : Renderer
+    public class InterleavedMeshRenderer<T> : Renderer where T : struct, IVertexType
     {
-        public Mesh Mesh { get; set; }
+        public InterleavedMesh<T> Mesh { get; set; }
 
         public override void Draw(Camera camera)
         {
