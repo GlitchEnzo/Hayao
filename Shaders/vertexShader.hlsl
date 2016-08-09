@@ -1,35 +1,42 @@
 #include "common.hlsl"
 
-//cbuffer TestBuffer  : register(b2)
+// transform point from model space to projection space
+//float4 main(float4 position : POSITION) : SV_POSITION
 //{
-//	float4x4 testMatrix1;
+//	//return position;
+//
+//	//return mul(position, testMatrix1);
+//	//return mul(testMatrix1, position);
+// 
+//	//float4 pos = float4(position.xyz, 1.0);
+//	//pos = mul(pos, Model);
+//	//pos = mul(pos, View);
+//	//pos = mul(pos, Projection);
+//	//return pos;
+//
+//	float4 pos = float4(position.xyz, 1.0);
+//	pos = mul(pos, ModelViewProjection);
+//	return pos;
+//
+//    //return ProjectionMatrix * ViewMatrix * ModelMatrix * float4(position.xyz, 1.0);
+//    //return ProjectionMatrix * ModelViewMatrix * float4(position.xyz, 1.0);
 //}
 
-//static matrix Identity =
-//{
-//	{ 1, 0, 0, 0 },
-//	{ 0, 1, 0, 0 },
-//	{ 0, 0, 1, 0 },
-//	{ 0, 0, 0, 1 }
-//};
-
-float4 main(float4 position : POSITION) : SV_POSITION
+struct VSOut
 {
-	//return position;
+	float4 position : SV_POSITION;
+	float4 color : COLOR;
+};
 
-	//return mul(position, testMatrix1);
-	//return mul(testMatrix1, position);
- 
-	//float4 pos = float4(position.xyz, 1.0);
-	//pos = mul(pos, Model);
-	//pos = mul(pos, View);
-	//pos = mul(pos, Projection);
-	//return pos;
-
+// transform point and pass color
+VSOut main(float4 position : POSITION, float4 color : COLOR)
+{
 	float4 pos = float4(position.xyz, 1.0);
 	pos = mul(pos, ModelViewProjection);
-	return pos;
 
-    //return ProjectionMatrix * ViewMatrix * ModelMatrix * float4(position.xyz, 1.0);
-    //return ProjectionMatrix * ModelViewMatrix * float4(position.xyz, 1.0);
+	VSOut output;
+	output.position = pos;
+	output.color = color;
+
+	return output;
 }

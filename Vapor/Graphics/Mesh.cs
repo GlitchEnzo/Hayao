@@ -5,7 +5,10 @@
     using SharpDX.Direct3D11;
     using SharpDX.DXGI;
 
-    public class Mesh : VaporObject
+    /// <summary>
+    /// A mesh with non-interleaved vertex data.  Meaning the positions, normals, colors, tex coords, etc are separate arrays/buffers.
+    /// </summary>
+    public class Mesh : VaporObject, IMesh
     {
         private Vector3[] vertices;
         public int VertexCount { get; private set; }
@@ -79,6 +82,7 @@
             Application.Device.ImmediateContext.InputAssembler.InputLayout = inputLayout;
 
             // Set vertex buffer
+            //Application.Device.ImmediateContext.InputAssembler.SetVertexBuffers(0, vertexBufferBinding);
             Application.Device.ImmediateContext.InputAssembler.SetVertexBuffers(0, vertexBufferBinding);
 
             // Set the index buffer

@@ -100,11 +100,11 @@
     <Compile Include="Vapor\Core\VaporObject.cs" />
     <Compile Include="Vapor\Graphics\Camera.cs" />
     <Compile Include="Vapor\Graphics\ConstantBuffer.cs" />
+    <Compile Include="Vapor\Graphics\IMesh.cs" />
     <Compile Include="Vapor\Graphics\InterleavedMesh.cs" />
     <Compile Include="Vapor\Graphics\IVertexType.cs" />
     <Compile Include="Vapor\Graphics\Material.cs" />
     <Compile Include="Vapor\Graphics\Mesh.cs" />
-    <Compile Include="Vapor\Graphics\InterleavedMeshRenderer.cs" />
     <Compile Include="Vapor\Graphics\MeshRenderer.cs" />
     <Compile Include="Vapor\Graphics\Renderer.cs" />
     <Compile Include="Vapor\Graphics\Shader.cs" />
@@ -112,6 +112,7 @@
     <Compile Include="Vapor\Graphics\ShaderIncludeHandler.cs" />
     <Compile Include="Vapor\Graphics\ShaderType.cs" />
     <Compile Include="Vapor\Graphics\VaporConstants.cs" />
+    <Compile Include="Vapor\Graphics\VertexPositionColor.cs" />
     <Compile Include="Vapor\Graphics\VertexPosition.cs" />
     <Compile Include="Vapor\Graphics\VertexShader.cs" />
     <Compile Include="Vapor\Math\MathUtils.cs" />

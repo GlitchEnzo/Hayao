@@ -127,7 +127,8 @@
         {
             SceneObject sceneObject = new SceneObject("Triangle");
             MeshRenderer meshRenderer = sceneObject.AddComponent<MeshRenderer>();
-            meshRenderer.Mesh = Mesh.CreateTriangle();
+            //meshRenderer.Mesh = Mesh.CreateTriangle();
+            meshRenderer.Mesh = InterleavedMesh<VertexPosition>.CreateTriangle();
 
             return sceneObject;
         }

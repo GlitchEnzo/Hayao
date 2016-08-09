@@ -2,7 +2,7 @@
 {
     public class MeshRenderer : Renderer
     {
-        public Mesh Mesh { get; set; }
+        public IMesh Mesh { get; set; }
 
         public override void Draw(Camera camera)
         {

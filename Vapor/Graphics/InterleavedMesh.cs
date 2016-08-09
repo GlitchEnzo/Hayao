@@ -5,7 +5,11 @@
     using SharpDX.Direct3D11;
     using SharpDX.DXGI;
 
-    public class InterleavedMesh<T> : VaporObject where T : struct, IVertexType
+    /// <summary>
+    /// A mesh with interleaved vertex data.  Meaning the positions, normals, colors, tex coords, etc are stored as a single array of structs.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class InterleavedMesh<T> : VaporObject, IMesh where T : struct, IVertexType
     {
         private T[] vertexData;
         public T[] VertexData
@@ -29,14 +33,9 @@
         }
         
         private Buffer vertexBuffer;
-        private VertexBufferBinding vertexBufferBinding;
+        private VertexBufferBinding vertexBufferBinding;        
 
         private uint[] indices;
-        private Buffer indexBuffer;
-
-        private InputLayout inputLayout;
-        private InputElement[] inputElements;
-
         public uint[] Indices
         {
             get
@@ -55,6 +54,11 @@
                 indexBuffer = Buffer.Create(Application.Device, BindFlags.IndexBuffer, indices);
             }
         }
+
+        private Buffer indexBuffer;
+
+        private InputLayout inputLayout;
+        private InputElement[] inputElements;
 
         public InterleavedMesh() : this("InterleavedMesh")
         {
@@ -85,17 +89,34 @@
             Application.Device.ImmediateContext.DrawIndexed(Indices.Length, 0, 0);
         }
 
-        public static InterleavedMesh<VertexPosition> CreateTriangle()
+        //public static InterleavedMesh<VertexPosition> CreateTriangle()
+        //{
+        //    //  0-----1
+        //    //   \   /
+        //    //     2
+        //    InterleavedMesh<VertexPosition> mesh = new InterleavedMesh<VertexPosition>("Triangle");
+        //    mesh.VertexData = new VertexPosition[] 
+        //    {
+        //        new VertexPosition(new Vector3(-0.5f, 0.5f, 0.0f)),
+        //        new VertexPosition(new Vector3(0.5f, 0.5f, 0.0f)),
+        //        new VertexPosition(new Vector3(0.0f, -0.5f, 0.0f))
+        //    };
+        //    mesh.Indices = new uint[] { 0, 1, 2 };
+
+        //    return mesh;
+        //}
+
+        public static InterleavedMesh<VertexPositionColor> CreateTriangle()
         {
             //  0-----1
             //   \   /
             //     2
-            InterleavedMesh<VertexPosition> mesh = new InterleavedMesh<VertexPosition>("Triangle");
-            mesh.VertexData = new VertexPosition[] 
+            InterleavedMesh<VertexPositionColor> mesh = new InterleavedMesh<VertexPositionColor>("Triangle");
+            mesh.VertexData = new VertexPositionColor[]
             {
-                new VertexPosition(new Vector3(-0.5f, 0.5f, 0.0f)),
-                new VertexPosition(new Vector3(0.5f, 0.5f, 0.0f)),
-                new VertexPosition(new Vector3(0.0f, -0.5f, 0.0f))
+                new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.0f), Color.Red),
+                new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.0f), Color.Blue),
+                new VertexPositionColor(new Vector3(0.0f, -0.5f, 0.0f), Color.White)
             };
             mesh.Indices = new uint[] { 0, 1, 2 };
 

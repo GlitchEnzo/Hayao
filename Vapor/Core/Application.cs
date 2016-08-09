@@ -105,9 +105,6 @@
             {
                 renderTargetView = new D3D11.RenderTargetView(Device, backBuffer);
             }
-
-            // Set back buffer as current render target view
-            Device.ImmediateContext.OutputMerger.SetRenderTargets(renderTargetView);
         }
 
         public virtual void Clear(SharpDX.Color clearColor)
@@ -132,6 +129,9 @@
 
             if (CurrentScene != null)
             {
+                // Set back buffer as current render target view
+                Device.ImmediateContext.OutputMerger.SetRenderTargets(renderTargetView);
+
                 CurrentScene.Draw();
             }
 
