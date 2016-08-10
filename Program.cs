@@ -1,7 +1,6 @@
 ﻿namespace Hayao
 {
     using SharpDX; // needed for math (Vector, Matrix, Color, etc)
-    using System.Runtime.InteropServices;
     using Vapor;
 
     class Program
@@ -20,19 +19,9 @@
             }
         }
 
-        [StructLayout(LayoutKind.Sequential)]
-        struct TestBuffer
-        {
-            public Matrix matrix;
-        }
-
         static void UseVapor()
         {
-            Application.Instance.WindowTitle = "Hayao";
-
-            //ConstantBuffer constantBuffer = ConstantBuffer.CreateFromStruct<TestBuffer>("TestBuffer", 1);
-            //TestBuffer testBuffer = new TestBuffer();
-            //testBuffer.matrix = Matrix.Identity;
+            Application.Instance.WindowTitle = "Hayao";       
 
             // create the scene
             Scene scene = new Scene("MyScene");
@@ -46,24 +35,23 @@
             cameraObject.AddComponent<CameraSlider>();
             scene.AddSceneObject(cameraObject);
 
-            // create a simple triangle
+            // create the material from loaded shaders
             Material material = new Material("Shaders//vertexShader.hlsl", "Shaders//pixelShader.hlsl");
-            //material.SetConstantBuffer(constantBuffer, testBuffer);
-            //material.SetConstantBuffer("TestBuffer", testBuffer);
 
             if (true)
             {
+                // create a simple triangle
                 SceneObject triangle = SceneObject.CreateTriangle();
                 triangle.Renderer.Material = material;
                 scene.AddSceneObject(triangle);
             }
             else
             {
+                // create a simple cube
                 SceneObject cube = SceneObject.CreateCube();
                 cube.Renderer.Material = material;
                 scene.AddSceneObject(cube);
             }
-
 
             Application.Instance.CurrentScene = scene;
             Application.Instance.Run();

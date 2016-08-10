@@ -23,21 +23,21 @@
                 else
                 {
                     reflection = new ShaderReflection(vertexShaderByteCode);
-
+                    ReadShader(reflection);
                     
 
                     vertexShader = new D3D11.VertexShader(Application.Device, vertexShaderByteCode);
                     //Set();
 
                     // automatically create constant buffers from the shader description
-                    for (int i = 0; i < reflection.Description.ConstantBuffers; i++)
-                    {
-                        var constantBufferInfo = reflection.GetConstantBuffer(i);
-                        var resourceInfo = reflection.GetResourceBindingDescription(constantBufferInfo.Description.Name);
-                        ConstantBuffer constantBuffer = new ConstantBuffer(constantBufferInfo.Description.Name, resourceInfo.BindPoint, constantBufferInfo.Description.Size);
-                        constantBuffers.Add(constantBuffer.VariableName, constantBuffer);
-                        Application.Device.ImmediateContext.VertexShader.SetConstantBuffer(constantBuffer.Slot, constantBuffer.Buffer);
-                    }
+                    //for (int i = 0; i < reflection.Description.ConstantBuffers; i++)
+                    //{
+                    //    var constantBufferInfo = reflection.GetConstantBuffer(i);
+                    //    var resourceInfo = reflection.GetResourceBindingDescription(constantBufferInfo.Description.Name);
+                    //    ConstantBuffer constantBuffer = new ConstantBuffer(constantBufferInfo.Description.Name, resourceInfo.BindPoint, constantBufferInfo.Description.Size);
+                    //    constantBuffers.Add(constantBuffer.VariableName, constantBuffer);
+                    //    Application.Device.ImmediateContext.VertexShader.SetConstantBuffer(constantBuffer.Slot, constantBuffer.Buffer);
+                    //}
 
                     // Read input signature from shader code
                     InputSignature = ShaderSignature.GetInputSignature(vertexShaderByteCode);
@@ -48,6 +48,12 @@
         public void Set()
         {
             Application.Device.ImmediateContext.VertexShader.Set(vertexShader);
+
+            // TODO: Does this produce garbage?
+            foreach (var constantBuffer in constantBuffers.Values)
+            {
+                Application.Device.ImmediateContext.VertexShader.SetConstantBuffer(constantBuffer.Slot, constantBuffer.Buffer);
+            }
         }
 
         /// <summary>
@@ -56,7 +62,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="constantBuffer"></param>
         /// <param name="bufferData"></param>
-        public void BindConstantBuffer<T>(ConstantBuffer constantBuffer, T bufferData) where T : struct
+        public override void BindConstantBuffer<T>(ConstantBuffer constantBuffer, T bufferData)
         {
             Application.Device.ImmediateContext.VertexShader.SetConstantBuffer(constantBuffer.Slot, constantBuffer.Buffer);
 
@@ -74,33 +80,9 @@
             Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, constantBuffer.Buffer);
         }
 
-        /// <summary>
-        /// Updates an EXISTING constant buffer with the given data.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="name"></param>
-        /// <param name="bufferData"></param>
-        public override void SetConstantBuffer<T>(string name, T bufferData)
+        public override void SetTexture(string name, Texture2D texture)
         {
-            if (constantBuffers.ContainsKey(name))
-            {
-                Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, constantBuffers[name].Buffer);
-            }
-            else if (name != "VaporConstants" && name != "VaporModelConstants")
-            {
-                Log.Error("VS: No constant buffer with that name: {0}", name);
-            }
-        }
-
-        public override ConstantBuffer GetConstantBuffer(string name)
-        {
-            if (constantBuffers.ContainsKey(name))
-            {
-                return constantBuffers[name];
-            }
-
-            Log.Error("VS: No constant buffer with that name: {0}", name);
-            return null;
+            
         }
 
         protected override void Dispose(bool disposing)

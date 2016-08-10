@@ -22,21 +22,26 @@
 //    //return ProjectionMatrix * ModelViewMatrix * float4(position.xyz, 1.0);
 //}
 
+struct VSIn
+{
+	float4 position : POSITION;
+	float4 uv : TEXCOORD;
+};
+
 struct VSOut
 {
 	float4 position : SV_POSITION;
-	float4 color : COLOR;
+	float4 uv : TEXCOORD;
 };
 
-// transform point and pass color
-VSOut main(float4 position : POSITION, float4 color : COLOR)
+VSOut main(VSIn input)
 {
-	float4 pos = float4(position.xyz, 1.0);
+	float4 pos = float4(input.position.xyz, 1.0);
 	pos = mul(pos, ModelViewProjection);
 
 	VSOut output;
 	output.position = pos;
-	output.color = color;
+	output.uv = input.uv;
 
 	return output;
 }

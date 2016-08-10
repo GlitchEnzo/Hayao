@@ -63,6 +63,10 @@
       <HintPath>packages\SharpDX.Desktop.3.0.2\lib\net45\SharpDX.Desktop.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SharpDX.Direct2D1, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>packages\SharpDX.Direct2D1.3.0.2\lib\net45\SharpDX.Direct2D1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SharpDX.Direct3D11, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>packages\SharpDX.Direct3D11.3.0.2\lib\net45\SharpDX.Direct3D11.dll</HintPath>
       <Private>True</Private>
@@ -107,11 +111,14 @@
     <Compile Include="Vapor\Graphics\Mesh.cs" />
     <Compile Include="Vapor\Graphics\MeshRenderer.cs" />
     <Compile Include="Vapor\Graphics\Renderer.cs" />
+    <Compile Include="Vapor\Graphics\Sampler.cs" />
     <Compile Include="Vapor\Graphics\Shader.cs" />
     <Compile Include="Vapor\Graphics\PixelShader.cs" />
     <Compile Include="Vapor\Graphics\ShaderIncludeHandler.cs" />
     <Compile Include="Vapor\Graphics\ShaderType.cs" />
+    <Compile Include="Vapor\Graphics\Texture2D.cs" />
     <Compile Include="Vapor\Graphics\VaporConstants.cs" />
+    <Compile Include="Vapor\Graphics\VertexPositionTexture.cs" />
     <Compile Include="Vapor\Graphics\VertexPositionColor.cs" />
     <Compile Include="Vapor\Graphics\VertexPosition.cs" />
     <Compile Include="Vapor\Graphics\VertexShader.cs" />
@@ -126,7 +133,13 @@
     <Content Include="Shaders\common.hlsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Shaders\PSVertexColor.hlsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Shaders\pixelShader.hlsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Shaders\VSVertexColor.hlsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Shaders\vertexShader.hlsl">

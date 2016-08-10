@@ -1,11 +1,13 @@
-// output red
-//float4 main(float4 position : SV_POSITION) : SV_TARGET
-//{
-//	return float4(1.0, 0.0, 0.0, 1.0);
-//}
+Texture2D ShaderTexture : register(t0);
+SamplerState Sampler : register(s0);
 
-// output color
-float4 main(float4 position : SV_POSITION, float4 color : COLOR) : SV_TARGET
+struct PSIn
 {
-	return color;
+	float4 position : SV_POSITION;
+	float4 uv : TEXCOORD;
+};
+
+float4 main(PSIn input) : SV_TARGET
+{
+	return ShaderTexture.Sample(Sampler, input.uv);
 }

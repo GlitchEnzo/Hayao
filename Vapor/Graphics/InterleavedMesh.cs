@@ -106,7 +106,7 @@
         //    return mesh;
         //}
 
-        public static InterleavedMesh<VertexPositionColor> CreateTriangle()
+        public static InterleavedMesh<VertexPositionColor> CreateColoredTriangle()
         {
             //  0-----1
             //   \   /
@@ -117,6 +117,23 @@
                 new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.0f), Color.Red),
                 new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.0f), Color.Blue),
                 new VertexPositionColor(new Vector3(0.0f, -0.5f, 0.0f), Color.White)
+            };
+            mesh.Indices = new uint[] { 0, 1, 2 };
+
+            return mesh;
+        }
+
+        public static InterleavedMesh<VertexPositionTexture> CreateTriangle()
+        {
+            //  0-----1
+            //   \   /
+            //     2
+            InterleavedMesh<VertexPositionTexture> mesh = new InterleavedMesh<VertexPositionTexture>("Triangle");
+            mesh.VertexData = new VertexPositionTexture[]
+            {
+                new VertexPositionTexture(new Vector3(-0.5f, 0.5f, 0.0f), new Vector2(0, 0)),
+                new VertexPositionTexture(new Vector3(0.5f, 0.5f, 0.0f), new Vector2(1, 0)),
+                new VertexPositionTexture(new Vector3(0.0f, -0.5f, 0.0f), new Vector2(0.5f, 1))
             };
             mesh.Indices = new uint[] { 0, 1, 2 };
 
