@@ -5,14 +5,14 @@
     public class Game : Application
     {
         private Material material;
-        private Mesh triangleMesh;
+        private InterleavedMesh<VertexPositionTexture> triangleMesh;
 
         public Game() : base()
         {
             material = new Material("vertexShader.hlsl", "pixelShader.hlsl");
             material.Set();
 
-            triangleMesh = Mesh.CreateTriangle();
+            triangleMesh = InterleavedMesh<VertexPositionTexture>.CreateTriangle();
         }
 
         protected override void Loop()

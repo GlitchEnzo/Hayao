@@ -106,22 +106,22 @@
         //    return mesh;
         //}
 
-        public static InterleavedMesh<VertexPositionColor> CreateColoredTriangle()
-        {
-            //  0-----1
-            //   \   /
-            //     2
-            InterleavedMesh<VertexPositionColor> mesh = new InterleavedMesh<VertexPositionColor>("Triangle");
-            mesh.VertexData = new VertexPositionColor[]
-            {
-                new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.0f), Color.Red),
-                new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.0f), Color.Blue),
-                new VertexPositionColor(new Vector3(0.0f, -0.5f, 0.0f), Color.White)
-            };
-            mesh.Indices = new uint[] { 0, 1, 2 };
+        //public static InterleavedMesh<VertexPositionColor> CreateColoredTriangle()
+        //{
+        //    //  0-----1
+        //    //   \   /
+        //    //     2
+        //    InterleavedMesh<VertexPositionColor> mesh = new InterleavedMesh<VertexPositionColor>("Triangle");
+        //    mesh.VertexData = new VertexPositionColor[]
+        //    {
+        //        new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.0f), Color.Red),
+        //        new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.0f), Color.Blue),
+        //        new VertexPositionColor(new Vector3(0.0f, -0.5f, 0.0f), Color.White)
+        //    };
+        //    mesh.Indices = new uint[] { 0, 1, 2 };
 
-            return mesh;
-        }
+        //    return mesh;
+        //}
 
         public static InterleavedMesh<VertexPositionTexture> CreateTriangle()
         {
@@ -136,6 +136,61 @@
                 new VertexPositionTexture(new Vector3(0.0f, -0.5f, 0.0f), new Vector2(0.5f, 1))
             };
             mesh.Indices = new uint[] { 0, 1, 2 };
+
+            return mesh;
+        }
+
+        public static InterleavedMesh<VertexPositionTexture> CreateCube()
+        {
+            // -Z
+            //  |
+            //  |
+            //  O-----+X
+            //  \     
+            //   \     
+            //    -Y
+
+            // 0------1
+            // |  T   |\
+            // |      |R\
+            // 3------2  5
+            //  \  F   \ |
+            //   \      \|
+            //    7------6
+
+            // 5------4
+            // |  B   |\
+            // |      |L\
+            // 6------7  0
+            //  \  F   \ |
+            //   \      \|
+            //    2------3
+            InterleavedMesh<VertexPositionTexture> mesh = new InterleavedMesh<VertexPositionTexture>("Cube");
+            mesh.VertexData = new VertexPositionTexture[] {
+                new VertexPositionTexture(new Vector3(-1.0f,  1.0f, -1.0f), new Vector2(0, 0)), // Top    Left    Back    0
+                new VertexPositionTexture(new Vector3( 1.0f,  1.0f, -1.0f), new Vector2(1, 0)), // Top    Right   Back    1
+                new VertexPositionTexture(new Vector3( 1.0f,  1.0f,  1.0f), new Vector2(1, 1)), // Top    Right   Front   2
+                new VertexPositionTexture(new Vector3(-1.0f,  1.0f,  1.0f), new Vector2(0, 1)), // Top    Left    Front   3
+                new VertexPositionTexture(new Vector3(-1.0f, -1.0f, -1.0f), new Vector2(1, 0)), // Bottom Left    Back    4
+                new VertexPositionTexture(new Vector3( 1.0f, -1.0f, -1.0f), new Vector2(0, 0)), // Bottom Right   Back    5
+                new VertexPositionTexture(new Vector3( 1.0f, -1.0f,  1.0f), new Vector2(0, 1)), // Bottom Right   Front   6
+                new VertexPositionTexture(new Vector3(-1.0f, -1.0f,  1.0f), new Vector2(1, 1))  // Bottom Left    Front   7 
+            };
+
+            mesh.Indices = new uint[] {
+                0, 1, 2, // Top
+                0, 2, 3,
+                0, 3, 4, // Left
+                3, 7, 4,
+                1, 5, 2, // Right
+                2, 5, 6,
+                2, 6, 3, // Front
+                3, 6, 7,
+                0, 4, 1, // Back
+                1, 4, 5,
+                4, 7, 6, // Bottom
+                4, 6, 5
+            };
 
             return mesh;
         }

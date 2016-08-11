@@ -137,7 +137,8 @@
         {
             SceneObject sceneObject = new SceneObject("Cube");
             MeshRenderer meshRenderer = sceneObject.AddComponent<MeshRenderer>();
-            meshRenderer.Mesh = Mesh.CreateCube();
+            //meshRenderer.Mesh = Mesh.CreateCube();
+            meshRenderer.Mesh = InterleavedMesh<VertexPosition>.CreateCube();
 
             return sceneObject;
         }

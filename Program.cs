@@ -41,7 +41,7 @@
             Material material = new Material("Shaders//vertexShader.hlsl", "Shaders//pixelShader.hlsl");
             material.SetTexture("ShaderTexture", cloudTexture);
 
-            if (true)
+            if (false)
             {
                 // create a simple triangle
                 SceneObject triangle = SceneObject.CreateTriangle();

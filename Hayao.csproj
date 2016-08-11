@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Models\cube.obj" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
