@@ -7,6 +7,8 @@
 
     public class Texture2D : VaporObject
     {
+        public int Slot { get; set; }
+
         public D3D11.ShaderResourceView ShaderResourceView { get; private set; }
 
         public D3D11.Texture2D Texture { get; private set; }

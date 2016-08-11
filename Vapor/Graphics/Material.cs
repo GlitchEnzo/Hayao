@@ -35,16 +35,33 @@
             VertexShader.BindConstantBuffer(constantBuffer, bufferData);
         }
 
-        public void SetConstantBuffer<T>(string name, T bufferData, ShaderType shaderType = ShaderType.All) where T : struct
+        public void UpdateConstantBuffer<T>(string name, T bufferData, ShaderType shaderType = ShaderType.All) where T : struct
         {
             if (shaderType == ShaderType.All)
             {
-                VertexShader.SetConstantBuffer(name, bufferData);
+                VertexShader.UpdateConstantBuffer(name, bufferData);
                 //PixelShader.SetConstantBuffer(name, bufferData);
             }
             else if(shaderType == ShaderType.Vertex)
             {
-                VertexShader.SetConstantBuffer(name, bufferData);
+                VertexShader.UpdateConstantBuffer(name, bufferData);
+            }
+            else if (shaderType == ShaderType.Pixel)
+            {
+                //PixelShader.SetConstantBuffer(name, bufferData);
+            }
+        }
+
+        public void SetTexture(string name, Texture2D texture, ShaderType shaderType = ShaderType.All)
+        {
+            if (shaderType == ShaderType.All)
+            {
+                //VertexShader.UpdateConstantBuffer(name, bufferData);
+                PixelShader.SetTexture(name, texture);
+            }
+            else if (shaderType == ShaderType.Vertex)
+            {
+                //VertexShader.UpdateConstantBuffer(name, bufferData);
             }
             else if (shaderType == ShaderType.Pixel)
             {

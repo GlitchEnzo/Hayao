@@ -1,7 +1,5 @@
 ﻿namespace Vapor
 {
-    using System.Collections.Generic;
-    using SharpDX;
     using SharpDX.D3DCompiler;
     using D3D11 = SharpDX.Direct3D11;
 
@@ -24,20 +22,8 @@
                 {
                     reflection = new ShaderReflection(vertexShaderByteCode);
                     ReadShader(reflection);
-                    
 
                     vertexShader = new D3D11.VertexShader(Application.Device, vertexShaderByteCode);
-                    //Set();
-
-                    // automatically create constant buffers from the shader description
-                    //for (int i = 0; i < reflection.Description.ConstantBuffers; i++)
-                    //{
-                    //    var constantBufferInfo = reflection.GetConstantBuffer(i);
-                    //    var resourceInfo = reflection.GetResourceBindingDescription(constantBufferInfo.Description.Name);
-                    //    ConstantBuffer constantBuffer = new ConstantBuffer(constantBufferInfo.Description.Name, resourceInfo.BindPoint, constantBufferInfo.Description.Size);
-                    //    constantBuffers.Add(constantBuffer.VariableName, constantBuffer);
-                    //    Application.Device.ImmediateContext.VertexShader.SetConstantBuffer(constantBuffer.Slot, constantBuffer.Buffer);
-                    //}
 
                     // Read input signature from shader code
                     InputSignature = ShaderSignature.GetInputSignature(vertexShaderByteCode);
@@ -45,15 +31,11 @@
             }
         }
 
-        public void Set()
+        public override void Set()
         {
             Application.Device.ImmediateContext.VertexShader.Set(vertexShader);
 
-            // TODO: Does this produce garbage?
-            foreach (var constantBuffer in constantBuffers.Values)
-            {
-                Application.Device.ImmediateContext.VertexShader.SetConstantBuffer(constantBuffer.Slot, constantBuffer.Buffer);
-            }
+            Set(Application.Device.ImmediateContext.VertexShader);
         }
 
         /// <summary>
@@ -78,11 +60,6 @@
             }            
 
             Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, constantBuffer.Buffer);
-        }
-
-        public override void SetTexture(string name, Texture2D texture)
-        {
-            
         }
 
         protected override void Dispose(bool disposing)

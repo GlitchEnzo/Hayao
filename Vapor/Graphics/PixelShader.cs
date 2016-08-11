@@ -22,20 +22,15 @@
                     ReadShader(reflection);
 
                     pixelShader = new D3D11.PixelShader(Application.Device, pixelShaderByteCode);
-                    //Set();
                 }
             }
         }
 
-        public void Set()
+        public override void Set()
         {
             Application.Device.ImmediateContext.PixelShader.Set(pixelShader);
 
-            // TODO: Does this produce garbage?
-            foreach (var constantBuffer in constantBuffers.Values)
-            {
-                Application.Device.ImmediateContext.PixelShader.SetConstantBuffer(constantBuffer.Slot, constantBuffer.Buffer);
-            }
+            Set(Application.Device.ImmediateContext.PixelShader);
         }
 
         /// <summary>
@@ -60,11 +55,6 @@
             }
 
             Application.Device.ImmediateContext.UpdateSubresource(ref bufferData, constantBuffer.Buffer);
-        }
-
-        public override void SetTexture(string name, Texture2D texture)
-        {
-            //Application.Device.ImmediateContext.s(ref bufferData, constantBuffers[name].Buffer);
         }
 
         protected override void Dispose(bool disposing)

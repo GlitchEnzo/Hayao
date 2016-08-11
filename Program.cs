@@ -21,7 +21,9 @@
 
         static void UseVapor()
         {
-            Application.Instance.WindowTitle = "Hayao";       
+            Application.Instance.WindowTitle = "Hayao";
+
+            Texture2D cloudTexture = Texture2D.FromFile("Textures//cloud.jpg");     
 
             // create the scene
             Scene scene = new Scene("MyScene");
@@ -37,6 +39,7 @@
 
             // create the material from loaded shaders
             Material material = new Material("Shaders//vertexShader.hlsl", "Shaders//pixelShader.hlsl");
+            material.SetTexture("ShaderTexture", cloudTexture);
 
             if (true)
             {

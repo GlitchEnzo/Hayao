@@ -18,7 +18,7 @@
 
             constants.ModelViewProjection.Transpose();
 
-            Material.SetConstantBuffer("VaporConstants", constants);
+            Material.UpdateConstantBuffer("VaporConstants", constants);
         }
     }
 }
