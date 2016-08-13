@@ -23,10 +23,6 @@
         {
             Application.Instance.WindowTitle = "Hayao";
 
-            ObjLoader.LoadObj("Models//cube.obj");
-
-            Texture2D cloudTexture = Texture2D.FromFile("Textures//cloud.jpg");     
-
             // create the scene
             Scene scene = new Scene("MyScene");
 
@@ -34,13 +30,17 @@
             SceneObject cameraObject = SceneObject.CreateCamera();
             cameraObject.Transform.Position = new Vector3(0.0f, 0.0f, -5.0f);
             cameraObject.Transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f));
+
             Camera camera = cameraObject.GetComponent<Camera>();
             camera.BackgroundColor = new Color(32, 103, 178);
+
             cameraObject.AddComponent<CameraSlider>();
+
             scene.AddSceneObject(cameraObject);
 
             // create the material from loaded shaders
             Material material = new Material("Shaders//vertexShader.hlsl", "Shaders//pixelShader.hlsl");
+            Texture2D cloudTexture = Texture2D.FromFile("Textures//cloud.jpg");
             material.SetTexture("ShaderTexture", cloudTexture);
 
             if (false)
@@ -53,7 +53,13 @@
             else
             {
                 // create a simple cube
-                SceneObject cube = SceneObject.CreateCube();
+                //SceneObject cube = SceneObject.CreateCube();
+                //cube.Renderer.Material = material;
+                //scene.AddSceneObject(cube);
+
+                SceneObject cube = new SceneObject("Cube");
+                MeshRenderer meshRenderer = cube.AddComponent<MeshRenderer>();
+                meshRenderer.Mesh = ObjLoader.LoadObj("Models//cube.obj");
                 cube.Renderer.Material = material;
                 scene.AddSceneObject(cube);
             }
