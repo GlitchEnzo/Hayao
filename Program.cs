@@ -23,6 +23,8 @@
         {
             Application.Instance.WindowTitle = "Hayao";
 
+            ObjLoader.LoadObj("Models//cube.obj");
+
             Texture2D cloudTexture = Texture2D.FromFile("Textures//cloud.jpg");     
 
             // create the scene

@@ -110,6 +110,7 @@
     <Compile Include="Vapor\Graphics\Material.cs" />
     <Compile Include="Vapor\Graphics\Mesh.cs" />
     <Compile Include="Vapor\Graphics\MeshRenderer.cs" />
+    <Compile Include="Vapor\Graphics\ObjLoader.cs" />
     <Compile Include="Vapor\Graphics\Renderer.cs" />
     <Compile Include="Vapor\Graphics\Sampler.cs" />
     <Compile Include="Vapor\Graphics\Shader.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Vapor\Graphics\ShaderType.cs" />
     <Compile Include="Vapor\Graphics\Texture2D.cs" />
     <Compile Include="Vapor\Graphics\VaporConstants.cs" />
+    <Compile Include="Vapor\Graphics\VertexPositionTextureNormal.cs" />
     <Compile Include="Vapor\Graphics\VertexPositionTexture.cs" />
     <Compile Include="Vapor\Graphics\VertexPositionColor.cs" />
     <Compile Include="Vapor\Graphics\VertexPosition.cs" />
@@ -127,7 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Models\cube.obj" />
+    <None Include="Models\cube.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
