@@ -173,10 +173,75 @@
             ScaleMatrix = Matrix.Identity;
         }
 
+        /// <summary>
+        /// https://github.com/sharpdx/SharpDX/blob/master/Source/SharpDX.Mathematics/Matrix.cs
+        /// </summary>
+        /// <param name="eye"></param>
+        /// <param name="target"></param>
+        /// <param name="up"></param>
+        /// <param name="result"></param>
+        private static void LookAtLH(ref Vector3 eye, ref Vector3 target, ref Vector3 up, out Matrix result)
+        {
+            Vector3 xaxis, yaxis, zaxis;
+
+            // calc forward vector
+            Vector3.Subtract(ref target, ref eye, out zaxis);
+            zaxis.Normalize();
+
+            // calc right vector
+            Vector3.Cross(ref up, ref zaxis, out xaxis);
+            xaxis.Normalize();
+
+            // calc up vector
+            Vector3.Cross(ref zaxis, ref xaxis, out yaxis);
+
+            result = Matrix.Identity;
+            result.M11 = xaxis.X; result.M21 = xaxis.Y; result.M31 = xaxis.Z;
+            result.M12 = yaxis.X; result.M22 = yaxis.Y; result.M32 = yaxis.Z;
+            result.M13 = zaxis.X; result.M23 = zaxis.Y; result.M33 = zaxis.Z;
+
+            result.TranslationVector = eye;
+        }
+
+
+        /// <summary>
+        /// "Looks" from the eyePosition to the targetPosition, using the given worldUp as a reference.
+        /// </summary>
+        /// <remarks>
+        /// This does NOT calculate the matrix as a "view" matrix.  This means that you don't need to invert it and that the translation vector is correct (no dot product).
+        /// </remarks>
+        /// <param name="eyePosition"></param>
+        /// <param name="targetPosition"></param>
+        /// <param name="worldUp"></param>
+        /// <returns></returns>
+        private static Matrix LookAtLH(Vector3 eyePosition, Vector3 targetPosition, Vector3 worldUp)
+        {
+            Matrix result;
+            LookAtLH(ref eyePosition, ref targetPosition, ref worldUp, out result);
+            return result;
+        }
+
+        public void LookAt(Vector3 eyePosition, Vector3 targetPosition, Vector3 worldUp)
+        {
+            //ModelMatrix = Matrix.LookAtLH(eyePosition, targetPosition, worldUp);
+            //ModelMatrix.Invert();
+
+            Matrix result;
+            LookAtLH(ref eyePosition, ref targetPosition, ref worldUp, out result);
+            ModelMatrix = result;
+        }
+
         public void LookAt(Vector3 targetPosition, Vector3 worldUp)
         {
-            // TODO: worldUp should only be a hint, not "solid"
-            ModelMatrix = Matrix.LookAtLH(Position, targetPosition, worldUp);
+            //ModelMatrix = Matrix.LookAtLH(Position, targetPosition, worldUp);
+            //ModelMatrix.Invert();
+
+            //Matrix result;
+            //Vector3 position = Position;
+            //LookAtLH(ref position, ref targetPosition, ref worldUp, out result);
+            //ModelMatrix = result;
+
+            LookAt(Position, targetPosition, worldUp);
         }
 
         public void Rotate(Vector3 axis, float angle)

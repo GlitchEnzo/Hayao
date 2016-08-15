@@ -10,8 +10,24 @@
 
         public Matrix ViewMatrix
         {
-            get { return Transform.ModelMatrix; }
-            set { Transform.ModelMatrix = value; }
+            get
+            {
+                Matrix modelMatrix = Transform.ModelMatrix;
+
+                Vector3 translation = modelMatrix.TranslationVector;
+                modelMatrix.TranslationVector = Vector3.Zero;
+
+                //Matrix translationMatrix = Matrix.Identity;
+                //translationMatrix.TranslationVector = Transform.ModelMatrix.TranslationVector;
+
+                Matrix viewMatrix = modelMatrix;
+                //viewMatrix.Invert();
+                viewMatrix.TranslationVector = new Vector3(-Vector3.Dot(modelMatrix.Right, translation),
+                                                           -Vector3.Dot(modelMatrix.Up, translation),
+                                                           -Vector3.Dot(modelMatrix.Backward, translation));
+
+                return viewMatrix;
+            }
         }
 
         /**

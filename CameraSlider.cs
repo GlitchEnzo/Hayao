@@ -15,8 +15,8 @@
         public float Zmax = 12;
         public float Zmin = 4;
 
-        public float Xmax = 3;
-        public float Xmin = -3;
+        public float Xmax = 2;
+        public float Xmin = -2;
 
         private bool forward = true;
 
@@ -26,7 +26,7 @@
         {
             base.Update();
 
-            var delta = Time.DeltaTime * 8;
+            var delta = Time.DeltaTime * 2;
 
             switch (Direction)
             {
@@ -38,6 +38,7 @@
                         posX += delta;
                         if (posX >= Xmax)
                         {
+                            posX = Xmax;
                             forward = false;
                         }
                     }
@@ -46,6 +47,7 @@
                         posX -= delta;
                         if (posX <= Xmin)
                         {
+                            posX = Xmin;
                             forward = true;
                         }
                     }
@@ -64,6 +66,7 @@
                         posZ += delta;
                         if (posZ >= Zmax)
                         {
+                            posZ = Zmax;
                             forward = false;
                         }
                     }
@@ -72,6 +75,7 @@
                         posZ -= delta;
                         if (posZ <= Zmin)
                         {
+                            posZ = Zmin;
                             forward = true;
                         }
                     }
